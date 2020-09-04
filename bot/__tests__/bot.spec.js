@@ -14,6 +14,9 @@ const response = module.exports = [
     167.94, 1, 0.6
   ]]
 
+beforeEach(() => {
+  jest.spyOn(console, 'log').mockImplementation(() => { });
+})
 
 describe('bot balance', () => {
   test('should have a balance', () => {
@@ -52,11 +55,13 @@ describe('bot ask', () => {
 
 describe('bot listen', () => {
   test('should loop', () => {
-    axios.get.mockImplementationOnce(async () => ({ data: response }))
-    bot.start()
+    axios.get.mockImplementation(async () => ({ data: response }))
     const run = jest.spyOn(bot, 'run')
-    jest.runOnlyPendingTimers();
+    const bid = jest.spyOn(bot, 'bid')
+    bot.start()
     expect(setInterval).toHaveBeenCalled();
-    expect(run).toHaveBeenCalled();
+    jest.runOnlyPendingTimers();
+    expect(run).toHaveBeenCalledTimes(2);
+    expect(bid).toHaveBeenCalled();
   })
 })

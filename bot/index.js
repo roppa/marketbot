@@ -33,13 +33,6 @@ const log = (orderType, amount) => console.log(`${orderType} @ ${amount}`)
 
 const logOrders = (orderType, orders) => orders.map(order => log(orderType, order))
 
-const run = async () => {
-  const bids = await bid()
-  const asks = await ask()
-  logOrders('PLACE BID', bids)
-  logOrders('FILLED ASK', asks)
-}
-
 const bot = {
   balance: {
     eth: 10,
@@ -50,6 +43,13 @@ const bot = {
   ask,
   run,
   start
+}
+
+async function run() {
+  const bids = await bot.bid()
+  const asks = await bot.ask()
+  logOrders('PLACE BID', bids)
+  logOrders('FILLED ASK', asks)
 }
 
 async function start() {
