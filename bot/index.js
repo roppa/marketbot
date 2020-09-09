@@ -31,8 +31,8 @@ const operatePercentOnOrders = (operation, percent, orders) =>
 const add = (a, b) => a + b
 const minus = (a, b) => a - b
 
-const bid = (orders) => operatePercentOnOrders(add, 5, orders)
-const ask = (orders) => operatePercentOnOrders(minus, 5, orders)
+const bid = operatePercentOnOrders.bind(null, add, 5)
+const ask = operatePercentOnOrders.bind(null, minus, 5)
 
 const logOrders = (orderType, orders) =>
   orders.map((amount) => console.log(`${orderType} @ ${amount}`))
