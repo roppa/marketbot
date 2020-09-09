@@ -20,13 +20,7 @@ const order = () =>
 const getRandomPercent = (percent) => Math.floor(Math.random() * percent) / 100
 
 const operatePercentOnOrders = (operation, percent, orders) =>
-  orders.map((order) => {
-    const result = []
-    for (let i = 0; i < 5; i++) {
-      result.push(operation(order[0], order[0] * getRandomPercent(percent)))
-    }
-    return result
-  })
+  orders.map((order) => [...new Array(5)].map(_ => operation(order[0], order[0] * getRandomPercent(percent))))
 
 const add = (a, b) => a + b
 const minus = (a, b) => a - b
